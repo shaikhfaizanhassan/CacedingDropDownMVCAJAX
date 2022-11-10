@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ajaxDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="batchtb">
+          <Key>
+            <PropertyRef Name="BatchID" />
+          </Key>
+          <Property Name="BatchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="studenttb">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="StudentID" Type="varchar" MaxLength="50" />
+          <Property Name="BatchIDKF" Type="int" />
+        </EntityType>
+        <Association Name="FK_studenttb_studenttb">
+          <End Role="batchtb" Type="Self.batchtb" Multiplicity="0..1" />
+          <End Role="studenttb" Type="Self.studenttb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batchtb">
+              <PropertyRef Name="BatchID" />
+            </Principal>
+            <Dependent Role="studenttb">
+              <PropertyRef Name="BatchIDKF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ajaxDBModelStoreContainer">
+          <EntitySet Name="batchtb" EntityType="Self.batchtb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studenttb" EntityType="Self.studenttb" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_studenttb_studenttb" Association="Self.FK_studenttb_studenttb">
+            <End Role="batchtb" EntitySet="batchtb" />
+            <End Role="studenttb" EntitySet="studenttb" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ajaxDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="batchtb">
+          <Key>
+            <PropertyRef Name="BatchID" />
+          </Key>
+          <Property Name="BatchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="studenttbs" Relationship="Self.FK_studenttb_studenttb" FromRole="batchtb" ToRole="studenttb" />
+        </EntityType>
+        <EntityType Name="studenttb">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BatchIDKF" Type="Int32" />
+          <NavigationProperty Name="batchtb" Relationship="Self.FK_studenttb_studenttb" FromRole="studenttb" ToRole="batchtb" />
+        </EntityType>
+        <Association Name="FK_studenttb_studenttb">
+          <End Role="batchtb" Type="Self.batchtb" Multiplicity="0..1" />
+          <End Role="studenttb" Type="Self.studenttb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batchtb">
+              <PropertyRef Name="BatchID" />
+            </Principal>
+            <Dependent Role="studenttb">
+              <PropertyRef Name="BatchIDKF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ajaxDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="batchtbs" EntityType="Self.batchtb" />
+          <EntitySet Name="studenttbs" EntityType="Self.studenttb" />
+          <AssociationSet Name="FK_studenttb_studenttb" Association="Self.FK_studenttb_studenttb">
+            <End Role="batchtb" EntitySet="batchtbs" />
+            <End Role="studenttb" EntitySet="studenttbs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ajaxDBModelStoreContainer" CdmEntityContainer="ajaxDBEntities">
+          <EntitySetMapping Name="batchtbs">
+            <EntityTypeMapping TypeName="ajaxDBModel.batchtb">
+              <MappingFragment StoreEntitySet="batchtb">
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studenttbs">
+            <EntityTypeMapping TypeName="ajaxDBModel.studenttb">
+              <MappingFragment StoreEntitySet="studenttb">
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="BatchIDKF" ColumnName="BatchIDKF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

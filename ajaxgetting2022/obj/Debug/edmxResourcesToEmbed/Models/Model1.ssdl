@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ajaxDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="batchtb">
+    <Key>
+      <PropertyRef Name="BatchID" />
+    </Key>
+    <Property Name="BatchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BatchName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="studenttb">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="StudentID" Type="varchar" MaxLength="50" />
+    <Property Name="BatchIDKF" Type="int" />
+  </EntityType>
+  <Association Name="FK_studenttb_studenttb">
+    <End Role="batchtb" Type="Self.batchtb" Multiplicity="0..1" />
+    <End Role="studenttb" Type="Self.studenttb" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="batchtb">
+        <PropertyRef Name="BatchID" />
+      </Principal>
+      <Dependent Role="studenttb">
+        <PropertyRef Name="BatchIDKF" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ajaxDBModelStoreContainer">
+    <EntitySet Name="batchtb" EntityType="Self.batchtb" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="studenttb" EntityType="Self.studenttb" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_studenttb_studenttb" Association="Self.FK_studenttb_studenttb">
+      <End Role="batchtb" EntitySet="batchtb" />
+      <End Role="studenttb" EntitySet="studenttb" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

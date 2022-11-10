@@ -1,0 +1,23 @@
+﻿
+@model IEnumerable<ajaxgetting2022.Models.studenttb>
+
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>STUDENT ID</th>
+            <th>Attendance</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@item.SID</td>
+        <td>@item.Name</td>
+        <td>@item.StudentID</td>
+        <td><a href=""><input type="checkbox" /></a></td>
+
+    </tr>
+        }
+    </table>
+</div>

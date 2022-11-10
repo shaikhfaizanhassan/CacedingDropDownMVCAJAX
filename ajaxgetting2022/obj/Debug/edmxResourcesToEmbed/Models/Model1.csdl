@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ajaxDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="batchtb">
+    <Key>
+      <PropertyRef Name="BatchID" />
+    </Key>
+    <Property Name="BatchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BatchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="studenttbs" Relationship="Self.FK_studenttb_studenttb" FromRole="batchtb" ToRole="studenttb" />
+  </EntityType>
+  <EntityType Name="studenttb">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BatchIDKF" Type="Int32" />
+    <NavigationProperty Name="batchtb" Relationship="Self.FK_studenttb_studenttb" FromRole="studenttb" ToRole="batchtb" />
+  </EntityType>
+  <Association Name="FK_studenttb_studenttb">
+    <End Role="batchtb" Type="Self.batchtb" Multiplicity="0..1" />
+    <End Role="studenttb" Type="Self.studenttb" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="batchtb">
+        <PropertyRef Name="BatchID" />
+      </Principal>
+      <Dependent Role="studenttb">
+        <PropertyRef Name="BatchIDKF" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ajaxDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="batchtbs" EntityType="Self.batchtb" />
+    <EntitySet Name="studenttbs" EntityType="Self.studenttb" />
+    <AssociationSet Name="FK_studenttb_studenttb" Association="Self.FK_studenttb_studenttb">
+      <End Role="batchtb" EntitySet="batchtbs" />
+      <End Role="studenttb" EntitySet="studenttbs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

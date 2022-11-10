@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ajaxDBModelStoreContainer" CdmEntityContainer="ajaxDBEntities">
+    <EntitySetMapping Name="batchtbs">
+      <EntityTypeMapping TypeName="ajaxDBModel.batchtb">
+        <MappingFragment StoreEntitySet="batchtb">
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="studenttbs">
+      <EntityTypeMapping TypeName="ajaxDBModel.studenttb">
+        <MappingFragment StoreEntitySet="studenttb">
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="BatchIDKF" ColumnName="BatchIDKF" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

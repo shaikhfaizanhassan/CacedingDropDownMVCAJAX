@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "StudentReport";
+}
+@model IEnumerable<ajaxgetting2022.Models.batchtb>
+
+<script>
+    function Getstudentdetail(sid) {
+        var aj = new XMLHttpRequest();
+        aj.open("GET", "https://localhost:44331/Home/ShowStudentReport?id=" + sid, true);
+        aj.onreadystatechange = function () {
+            document.getElementById("show").innerHTML = aj.responseText;
+        };
+        aj.send();
+    }
+</script>
+
+
+
+
+
+<h2>Student Report</h2>
+<select onchange="Getstudentdetail(this.value)" class="form-control">
+       <option>Select Batch</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.BatchID">@item.BatchName</option>
+    }
+</select>
+
+<br />
+<div id="show"></div>
