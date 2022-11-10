@@ -12,6 +12,7 @@ namespace ajaxgetting2022.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //2022 changes      
             return View();
         }
         public ActionResult AddBatch()
